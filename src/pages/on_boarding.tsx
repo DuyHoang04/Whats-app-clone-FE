@@ -30,12 +30,14 @@ const on_boarding: React.FC = () => {
       const email = userInfo?.email;
       try {
         if (email) {
-          const { data } = await axios.post(CREATE_USER_ROUTE, {
-            email,
-            name,
-            about: yourAbout,
-            profileImage: image,
-          });
+          const formDataUser = new FormData();
+          formDataUser.append("email", email);
+          formDataUser.append("name", name);
+          formDataUser.append("about", yourAbout);
+          formDataUser.append("profileImage", selectFile || image);
+          const { data } = await axios.post(CREATE_USER_ROUTE, formDataUser);
+          console.log(data);
+
           if (data.success) {
             setNewUserReq(false);
             setUserInfo({

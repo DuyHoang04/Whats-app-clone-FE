@@ -1,14 +1,17 @@
+import { blobToFile } from "@/utils";
 import React, { useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 
 type capturePhotoProps = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   hideCapturePhoto: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectFile?: React.Dispatch<React.SetStateAction<File | undefined>>;
 };
 
 const CapturePhoto: React.FC<capturePhotoProps> = ({
   setImage,
   hideCapturePhoto,
+  setSelectFile,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -42,6 +45,12 @@ const CapturePhoto: React.FC<capturePhotoProps> = ({
     if (videoElement) {
       const canvas = document.createElement("canvas");
       canvas.getContext("2d")?.drawImage(videoElement, 0, 0, 300, 150);
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], "photo.jpg", { type: blob.type });
+          setSelectFile!(file);
+        }
+      }, "image/jpeg");
       setImage(canvas.toDataURL("image/jpeg"));
       hideCapturePhoto(false);
     } else {

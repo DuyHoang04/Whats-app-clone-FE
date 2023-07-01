@@ -8,6 +8,7 @@ const nextConfig = {
     NEXT_ZEGO_APP_SERVER: "ca3fc0b586367cc4f9990588be0e045b",
   },
   images: {
+    domains: ["lh3.googleusercontent.com"],
     remotePatterns: [
       {
         protocol: "https",

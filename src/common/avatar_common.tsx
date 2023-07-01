@@ -47,6 +47,8 @@ const AvatarCommon: React.FC<avatarPropsType> = ({
     }
   }, [grabPhoto]);
 
+  console.log(image);
+
   const contextMenuOptions = [
     {
       name: "Take Photo",
@@ -148,6 +150,7 @@ const AvatarCommon: React.FC<avatarPropsType> = ({
 
           {showCapturePhoto && setImage && (
             <CapturePhoto
+              setSelectFile={setSelectFile}
               setImage={setImage}
               hideCapturePhoto={setShowCapturePhoto}
             />
